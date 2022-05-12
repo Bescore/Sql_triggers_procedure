@@ -53,12 +53,10 @@ CREATE OR REPLACE TRIGGER update_commande BEFORE INSERT ON details
 
 DELIMITER //
 
-CREATE OR REPLACE TRIGGER update_commande
-BEFORE DELETE  ON commandes
- FOR EACH ROW
- BEGIN
- SET OLD.total= OLD.totaL;
-     
- END //;
-
+CREATE TRIGGER commejeveux BEFORE DELETE ON detail
+FOR EACH ROW
+BEGIN
+    UPDATE COMMANDE SET total = total - (OLD.prix*OLD.qte) WHERE id = OLD.id_commande;
+    END //
+    
 
